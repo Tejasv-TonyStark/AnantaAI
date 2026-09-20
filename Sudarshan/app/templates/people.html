@@ -1,0 +1,17 @@
+<details class="employee-create"><summary><span>Add employee</span><i data-lucide="user-plus"></i></summary>
+<form data-api="/admin/users" class="management-form" data-method="POST">
+  <label>Name<input name="name" required maxlength="100" autocomplete="name"></label>
+  <label>Work email<input name="email" type="email" required maxlength="254" autocomplete="off"></label>
+  <label>Initial password<input name="password" type="password" required minlength="8" maxlength="128" autocomplete="new-password"></label>
+  <label>Role<select name="role">{% for key,label in roles.items() %}<option value="{{ key }}">{{ label }}</option>{% endfor %}</select></label>
+  <button type="submit">Create employee</button><p class="form-message" role="status"></p>
+</form></details>
+<div class="table-scroll"><table><thead><tr><th>EMPLOYEE</th><th>ROLE / ACCOUNT STATUS</th></tr></thead><tbody id="records-body">
+{% for employee in rows %}<tr><td><div class="person-cell"><span class="avatar">{{ employee.name[0] }}</span><div><strong>{{ employee.name }}</strong><small>{{ employee.email }}</small><small>SK-{{ '%03d' % employee.id }}</small></div></div></td><td>
+<form data-api="/admin/users/{{ employee.id }}" data-method="PATCH" class="employee-edit">
+<select name="role" aria-label="Role for {{ employee.name }}">{% for key,label in roles.items() %}<option value="{{ key }}" {% if employee.role == key %}selected{% endif %}>{{ label }}</option>{% endfor %}</select>
+<label class="check-label"><input type="checkbox" name="is_active" {% if employee.is_active %}checked{% endif %}>Active</label>
+<button type="submit" title="Save {{ employee.name }}" aria-label="Save {{ employee.name }}"><i data-lucide="save"></i></button><p class="form-message" role="status"></p>
+</form></td></tr>{% else %}<tr><td colspan="2">No employees match these filters.</td></tr>{% endfor %}
+</tbody></table></div>
+{% include 'pagination.html' %}

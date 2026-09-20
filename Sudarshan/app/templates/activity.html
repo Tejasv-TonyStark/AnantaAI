@@ -1,0 +1,5 @@
+<div class="table-scroll"><table><thead><tr><th>ACTIVITY</th><th>EMPLOYEE</th><th>RESULT</th><th>TIME (UTC)</th></tr></thead><tbody id="records-body">
+{% for event in rows %}<tr><td class="activity-message">{{ event.message }}</td><td>{{ event.employee_name }}<small class="record-id">{% if event.user_id %}SK-{{ '%03d' % event.user_id }}{% else %}Unknown ID{% endif %}</small></td><td><span class="badge {{ 'success' if event.status in ['success','granted'] else 'danger' }}">{{ event.status }}</span></td><td>{{ event.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td></tr>
+{% else %}<tr><td colspan="4">No activity matches these filters.</td></tr>{% endfor %}
+</tbody></table></div>
+{% include 'pagination.html' %}

@@ -1,0 +1,4 @@
+<div class="pagination"><span id="page-number">Page {{ offset // 25 + 1 }} / {{ rows|length }} records</span><div>
+<button data-offset="{{ [0,offset-25]|max }}" aria-label="Previous page" {% if offset == 0 %}disabled{% endif %}><i data-lucide="chevron-left"></i></button>
+<button data-offset="{{ offset+25 }}" aria-label="Next page" {% if rows|length < 25 %}disabled{% endif %}><i data-lucide="chevron-right"></i></button>
+</div></div>

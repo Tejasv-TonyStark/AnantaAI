@@ -1,0 +1,9 @@
+<div class="profile-details"><div class="profile-row"><span>Name</span><strong>{{ user.name }}</strong></div><div class="profile-row"><span>Work email</span><strong>{{ user.email }}</strong></div><div class="profile-row"><span>Company</span><strong>{{ company }}</strong></div><div class="profile-row"><span>Role</span><strong>{{ roles[user.role] }}</strong></div></div>
+<div class="section-heading"><h2>My permissions</h2></div>
+<div class="permission-list">{% for item in permissions %}<div class="permission-row"><div><strong>{{ item.name }}</strong><small>{{ item.reason }}</small></div><span class="badge {{ 'success' if item.allowed else 'neutral' }}">{{ 'Allowed' if item.allowed else 'Restricted' }}</span></div>{% endfor %}</div>
+<div class="section-heading"><h2>Change password</h2></div>
+<form data-api="/users/me/password" data-method="POST" class="management-form">
+<label>Current password<input name="current_password" type="password" required maxlength="128" autocomplete="current-password"></label>
+<label>New password<input name="new_password" type="password" required minlength="8" maxlength="128" autocomplete="new-password"></label>
+<button type="submit">Change password</button><p class="form-message" role="status"></p>
+</form>
